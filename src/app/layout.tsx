@@ -19,7 +19,7 @@ export default function RootLayout({
     // Simulating a loading delay
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 1000); // Adjust the duration as needed
+    }, 300); // Adjust the duration as needed
 
     return () => clearTimeout(timeout);
   }, []);

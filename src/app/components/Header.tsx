@@ -13,7 +13,9 @@ const Header = () => {
     return (
         <header className="w-full flex text-[#183B56] font-semibold justify-between items-center px-10 lg:px-[180px] py-2 h-24">
              <div className="hidden text-5xl lg:block">
+              <Link href={'/'}>
                 <Image src='/images/ipologo.png' alt="Logo" className="h-[80px] w-auto" width={104} height={80}></Image>
+                </Link>
             </div>
             <div className="hidden lg:flex gap-8 ">
                 <Link href="/" className=" hover:text-blue-500">Home</Link>

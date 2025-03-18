@@ -76,7 +76,7 @@ const RecentlyClosedIPOs = () => {
       {/* Back to Home */}
       <Header/>
         <h1 className="text-2xl font-bold mb-4 text-gray-800 text-center">
-          📉 RECENTLY CLOSED IPOs
+        Recently Closed IPOs: Performance & Insights
         </h1>
 
         {/* Search Bar */}
