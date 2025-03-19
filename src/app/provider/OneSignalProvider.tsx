@@ -9,8 +9,8 @@ const OneSignalProvider = () => {
   useEffect(() => {
     const setupOneSignal = async () => {
       await OneSignal.init({
-        appId: "d941ed1a-7334-4011-878d-a5384753318c",
-        safari_web_id: "web.onesignal.auto.122898af-6461-4378-9cd0-e897364a2895",
+        appId: process.env.NEXT_PUBLIC_os_appId || '',
+        safari_web_id: process.env.NEXT_PUBLIC_os_safari_web_id,
         notifyButton: { enable: false },
         allowLocalhostAsSecureOrigin: true,
       });
