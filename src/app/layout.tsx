@@ -3,6 +3,8 @@ import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import { useEffect, useState } from "react";
 import Loader from "./components/Loader/Loader";
+import Script from "next/script";
+import OneSignalProvider from "./provider/OneSignalProvider";
 
 
 
@@ -27,11 +29,13 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+     
       <body
       >{isLoading ? (
         <Loader />
       ) : (
         <>
+         <OneSignalProvider />
         {children}
         <Toaster/>
         </>
