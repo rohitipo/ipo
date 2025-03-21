@@ -105,25 +105,31 @@ export default function IpoMultiStepForm() {
 
   const editor = useEditor({
     extensions: [StarterKit],
-    content: formData.companyDescription,
+    content: formData.companyDescription, // Initial empty or existing content
     onUpdate: ({ editor }) => {
       setFormData((prev) => ({ ...prev, companyDescription: editor.getHTML() }));
     },
   });
-
-    useEffect(() => {
-      if (id) {
-        fetch(`/api/ipo/getIpobyId?id=${id}`)
-          .then((res) => res.json())
-          .then((response) => {
-            if (response?.data) { 
-              setFormData((prev) => ({ ...prev, ...response.data })); 
-              console.log(response.data); // Ensure all fields are updated properly
+  
+  useEffect(() => {
+    if (id) {
+      fetch(`/api/ipo/getIpobyId?id=${id}`)
+        .then((res) => res.json())
+        .then((response) => {
+          if (response?.data) { 
+            setFormData((prev) => ({ ...prev, ...response.data })); 
+            console.log(response.data); // Ensure all fields are updated properly
+  
+            // ✅ Update the editor with the fetched content
+            if (editor && response.data.companyDescription) {
+              editor.commands.setContent(response.data.companyDescription);
             }
-          })
-          .catch(() => toast.error("Failed to fetch IPO data"));
-      }
-    }, [id]);
+          }
+        })
+        .catch(() => toast.error("Failed to fetch IPO data"));
+    }
+  }, [id, editor]); // Depend on editor to update content
+  
     
 
   // Handle Input Change
