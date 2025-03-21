@@ -1,7 +1,7 @@
 'use client';
 
 
-import { useEffect, useState } from "react";
+import { useState,   useRef, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
@@ -90,6 +90,7 @@ export default function IPOCard() {
   const [shrink, setShrink] = useState(false);
   const [activeTab, setActiveTab] = useState<string>(mainSections[0].id);
   const [showMore, setShowMore] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const { id } = useParams(); // Get the IPO ID from the URL
   const [ipoDetails, setIpoDetails] = useState<IPO | null>(null);
@@ -144,7 +145,18 @@ const scrollToSection = (id: string) => {
     }
 };
 
+useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowMore(false);
+      }
+    }
 
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
 
 const [isLoading, setIsLoading] = useState(true);
@@ -186,7 +198,7 @@ return () => clearTimeout(timeout);
                         </button>
                     ))}
                     {/* More Dropdown */}
-                    <div className="relative">
+                    <div className="relative" ref={dropdownRef}>
                         <button
                             onClick={() => setShowMore(!showMore)}
                             className="px-3 py-2 text-xs md:text-sm font-medium rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200"

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu,  X,  ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,6 +9,23 @@ import Link from "next/link";
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null); // Reference for the dropdown
+
+  // Close dropdown if user clicks outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    }
+
+    // Add event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Cleanup event listener on unmount
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
     
     return (
         <header className="w-full flex text-[#183B56] font-semibold justify-between items-center px-10 lg:px-[180px] py-2 h-24">
@@ -21,7 +38,7 @@ const Header = () => {
                 <Link href="/" className=" hover:text-blue-500">Home</Link>
                 <Link href="/articles" className=" hover:text-blue-500">Articles</Link>
                 <Link href="/aboutUs" className="hover:text-blue-500">About Us</Link>
-                <div className="relative">
+                <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
               className="flex items-center gap-1 hover:text-blue-500"
