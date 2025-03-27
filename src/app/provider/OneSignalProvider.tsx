@@ -43,7 +43,7 @@ const OneSignalProvider = () => {
   };
 
   return (
-    <div className="fixed top-10 left-1/2 transform -translate-x-1/2 px-4 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg z-[99999]">
+    <div className="fixed top-10 left-1/2 transform -translate-x-1/2 px-4 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg z-50">
     <AnimatePresence>
       {!isSubscribed && showPopup && (
         <motion.div
