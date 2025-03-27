@@ -16,8 +16,9 @@ const OneSignalProvider = () => {
       });
   
       console.log("Checking subscription status...");
-      const subscribed = OneSignal.User.PushSubscription.optedIn ?? false;
-      setIsSubscribed(subscribed);
+      const subscribed = await OneSignal.User.PushSubscription.optedIn;
+      console.log("Subscription status:", subscribed);
+      setIsSubscribed(subscribed ?? false);
   
       if (!subscribed) {
         console.log("Delaying popup display...");
