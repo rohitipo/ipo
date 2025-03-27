@@ -9,8 +9,9 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
+  
   const dropdownRef = useRef<HTMLDivElement>(null);
-
+  const mobileDropdownRef = useRef<HTMLDivElement>(null);
   // Close dropdown if user clicks outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -18,12 +19,25 @@ const Header = () => {
         setDropdownOpen(false);
       }
     }
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  // Close mobile dropdown if user clicks outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (mobileDropdownRef.current && !mobileDropdownRef.current.contains(event.target as Node)) {
+        setMobileDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
 
   return (
     <header className="w-full flex text-[#183B56] font-semibold justify-between items-center px-10 lg:px-[180px] py-2 h-24">
@@ -63,8 +77,8 @@ const Header = () => {
         <Link href="/policy" className="hover:text-blue-500">Policy</Link>
       </div>
 
-      {/* Mobile Header */}
-      <div className="lg:hidden">
+    {/* Mobile Header */}
+    <div className="lg:hidden">
         <Image src='/images/ipologo.png' alt="Logo" className="h-[48px] w-auto" width={63} height={48} />
       </div>
       <div className="lg:hidden">
@@ -85,23 +99,25 @@ const Header = () => {
             <Link href="/aboutUs" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>About Us</Link>
 
             {/* Mobile Dropdown */}
-            <button
-              onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
-              className="flex items-center gap-1 hover:text-blue-500"
-            >
-              IPOs <ChevronDown size={16} />
-            </button>
-            {mobileDropdownOpen && (
-              <div className="w-40 bg-white text-black shadow-md rounded-md p-2">
-                <Link href="/upcomingIpo" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>Upcoming IPOs</Link>
-                <Link href="/recentIpo" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>Recently Closed IPOs</Link>
-                <Link href="/allotmentStat" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>Check Allotment</Link>
-                <Link href="/ipoCalendar" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>IPO Calendar</Link>
-                <Link href="/faq" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>FAQ (IPOs and GMP)</Link>
-                <Link href="#" className="block px-4 py-2 hover:bg-gray-100">News (Coming Soon)</Link>
-                <Link href="/buyBack" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>More</Link>
-              </div>
-            )}
+            <div ref={mobileDropdownRef}>
+              <button
+                onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
+                className="flex items-center gap-1 hover:text-blue-500"
+              >
+                IPOs <ChevronDown size={16} />
+              </button>
+              {mobileDropdownOpen && (
+                <div className="absolute w-40 bg-white text-black shadow-md rounded-md p-2">
+                  <Link href="/upcomingIpo" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>Upcoming IPOs</Link>
+                  <Link href="/recentIpo" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>Recently Closed IPOs</Link>
+                  <Link href="/allotmentStat" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>Check Allotment</Link>
+                  <Link href="/ipoCalendar" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>IPO Calendar</Link>
+                  <Link href="/faq" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>FAQ (IPOs and GMP)</Link>
+                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100">News (Coming Soon)</Link>
+                  <Link href="/buyBack" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>More</Link>
+                </div>
+              )}
+            </div>
 
             <Link href="/policy" className="hover:text-gray-400" onClick={() => setIsOpen(false)}>Policy</Link>
           </nav>
