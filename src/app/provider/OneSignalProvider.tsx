@@ -14,21 +14,22 @@ const OneSignalProvider = () => {
         notifyButton: { enable: false },
         allowLocalhostAsSecureOrigin: true,
       });
-
-      setTimeout(() => {
-        const subscribed = OneSignal.User.PushSubscription.optedIn ?? false;
-        console.log('he;;p')
-        setIsSubscribed(subscribed);
-
-        if (!subscribed) {
-            console.log("hel")
+  
+      console.log("Checking subscription status...");
+      const subscribed = OneSignal.User.PushSubscription.optedIn ?? false;
+      setIsSubscribed(subscribed);
+  
+      if (!subscribed) {
+        console.log("Delaying popup display...");
+        setTimeout(() => {
           setShowPopup(true);
-        }
-      }, 3000);
+        }, 3000);
+      }
     };
-
+  
     setupOneSignal();
   }, []);
+  
 
   const handleSubscribe = async () => {
     await OneSignal.Notifications.requestPermission();
