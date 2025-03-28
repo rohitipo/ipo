@@ -20,6 +20,7 @@ import { useParams } from "next/navigation";
 import ProsCons from "@/app/components/ipoComponents/ProsCons";
 import Loader from "@/app/components/Loader/Loader";
 import Voting from "@/app/components/ipoComponents/Voting";
+import NewsLetter from "@/app/components/NewsLetter";
 
 export interface IPO {
     _id: string;
@@ -180,13 +181,13 @@ return () => clearTimeout(timeout);
       ) : (
         
         <div className="flex flex-col min-h-screen">
-            <div className={`fixed top-0 left-0 right-0 bg-white z-10 transition-all duration-300 ${shrink ? "py-2" : "py-6"}`}>
+            <div className={`fixed top-0 left-0 right-0 bg-white z-10 transition-all duration-300 ${shrink ? "py-2 md:py-1" : "py-4 md:py-2"}`}>
                 <Header />
-                <div className={`text-left font-mono font-bold transition-all duration-300 ${shrink ? "text-3xl p-4" : "text-4xl p-4"}`}>
+                <div className={`text-left font-mono font-bold transition-all duration-300 ${shrink ? "text-xl md:text-3xl p-1" : "text-2xl md:text-4xl p-2"}`}>
                     {ipoDetails?.name}
                 </div>
                 {/* Tabs Navigation */}
-                <div className="flex flex-wrap gap-2 bg-white p-3 rounded-lg">
+                <div className="flex flex-wrap gap-2 bg-white p-2 rounded-lg">
                     {mainSections.map((section) => (
                         <button
                             key={section.id}
@@ -223,7 +224,7 @@ return () => clearTimeout(timeout);
                 <hr />
             </div>
 
-            <div className="flex-1 overflow-y-auto pt-[400px] lg:pt-[320px] p-4">
+            <div className="flex-1 overflow-y-auto pt-[320px] lg:pt-[320px] p-4">
                 {/* Scrollable Content */}
                 <div id="ipo-details">{ipoDetails ? <IpoDetails ipo={ipoDetails} /> : <p></p>}</div>
 
@@ -310,7 +311,7 @@ return () => clearTimeout(timeout);
                 <Voting ipoId={id as string}/>
                 </div>
 
-            
+            <NewsLetter/>
             <Footer />
        
         </div>

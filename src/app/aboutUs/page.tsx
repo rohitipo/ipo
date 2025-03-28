@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Briefcase, LineChart, TrendingUp } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import NewsLetter from "../components/NewsLetter";
 
 const AboutUs: FC = () => {
   return (
@@ -48,6 +49,7 @@ const AboutUs: FC = () => {
         </p>
       </div>
     </div>
+    <NewsLetter/>
     <Footer/>
     </div>
   );

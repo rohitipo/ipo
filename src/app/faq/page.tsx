@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import NewsLetter from "../components/NewsLetter";
 
 const faqs = [
   {
@@ -113,6 +114,7 @@ const FAQPage = () => {
         ))}
       </div>
     </div>
+    <NewsLetter/>
     <Footer/>
     </div>
   );

@@ -1,12 +1,13 @@
 import { FC } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import NewsLetter from "../components/NewsLetter";
 
 const PolicyPage: FC = () => {
   return (
     <div>
         <Header/>
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-200 text-gray-800 py-16 px-6 md:px-12 flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-b from-white to-white text-gray-800 py-16 px-6 md:px-12 flex items-center justify-center">
       <div className="w-full max-w-5xl text-left">
         <h1 className="text-5xl font-extrabold text-gray-800 mb-8 text-center">Privacy Policy & Terms</h1>
         
@@ -89,6 +90,7 @@ const PolicyPage: FC = () => {
         </section>
       </div>
     </div>
+    <NewsLetter/>
     <Footer/>
     </div>
   );

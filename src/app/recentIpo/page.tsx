@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/table";
 import IpoPerformanceTables from "../components/closedIpoTable";
 import Loader from "../components/Loader/Loader";
+import NewsLetter from "../components/NewsLetter";
 
 
 interface IPO {
@@ -157,6 +158,7 @@ const RecentlyClosedIPOs = () => {
         </div>
         </>
       )}
+      <NewsLetter/>
       <Footer/>
     </div>
   );
