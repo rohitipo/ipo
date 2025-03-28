@@ -3,6 +3,7 @@
 import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import NewsLetter from "../components/NewsLetter";
 
 const officialWebsites = [
   { name: "BSE", url: "https://www.bseindia.com/investors/appli_check.aspx" },
@@ -119,6 +120,7 @@ const AllotmentStatus = () => {
       </div>
       
     </div>
+    <NewsLetter/>
     <Footer/>
     </div>
   );

@@ -14,6 +14,7 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import Loader from "../components/Loader/Loader";
+import NewsLetter from "../components/NewsLetter";
 
 interface IPO {
   id: string;
@@ -194,7 +195,7 @@ const UpcomingIPOs = () => {
         <Link href={`/recentIpo`}><Button>Recently Closed IPOs</Button></Link>
         <Link href={`/upcomingIpo`}><Button>Ongoing IPOs</Button></Link>
       </div>
-
+      <NewsLetter/>
       <Footer />
     </div>
   );

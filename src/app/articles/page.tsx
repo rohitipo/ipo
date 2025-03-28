@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Image from "next/image";
+import NewsLetter from "../components/NewsLetter";
 
 const Page = () => {
     const [expandedArticles, setExpandedArticles] = useState<{ [key: number]: boolean }>({});
@@ -172,6 +173,7 @@ const Page = () => {
                     ))}
                 </div>
             </div>
+            <NewsLetter/>
             <Footer />
         </div>
     );

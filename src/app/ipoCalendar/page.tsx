@@ -8,6 +8,7 @@ import Link from "next/link";
 import Loader from "../components/Loader/Loader";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import NewsLetter from "../components/NewsLetter";
 
 interface IPO {
   id: string;
@@ -113,6 +114,7 @@ export default function IPOCalendar() {
         </>
       )}
     </div>
+    <NewsLetter/>
     <Footer/>
     </div>
   );

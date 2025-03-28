@@ -15,10 +15,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-
-
   const [isLoading, setIsLoading] = useState(true);
+  const [gaLoaded, setGaLoaded] = useState(false);
+
   useEffect(() => {
     // Simulating a loading delay
     const timeout = setTimeout(() => {
@@ -28,6 +27,16 @@ export default function RootLayout({
     return () => clearTimeout(timeout);
   }, []);
 
+  useEffect(() => {
+    const checkGA = () => {
+      if (typeof window !== "undefined" && (window as any).gtag) {
+        setGaLoaded(true);
+      } else {
+        setTimeout(checkGA, 500); // Retry every 500ms
+      }
+    };
+    checkGA();
+  }, []);
 
   return (
     <html lang="en">
@@ -36,6 +45,7 @@ export default function RootLayout({
         <Script
           strategy="afterInteractive"
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+          onLoad={() => setGaLoaded(true)}
         />
         <Script
           id="google-analytics"
@@ -58,7 +68,7 @@ export default function RootLayout({
         <Loader />
       ) : (
         <>
-           <OneSignalProvider />
+           {gaLoaded && <OneSignalProvider />}
             {children}
             <Toaster/>
         </>

@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/table';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import NewsLetter from '../components/NewsLetter';
 
 // Define data structure
 type BuyBackEntry = {
@@ -91,6 +92,7 @@ const BuyBackTables: React.FC = () => {
         <RightsIssueTables/>
       </div>
     </div>
+    <NewsLetter/>
     <Footer/>
     </div>
   );
