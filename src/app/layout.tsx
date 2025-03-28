@@ -61,24 +61,6 @@ export default function RootLayout({
             `,
           }}
         />
-
-
-        <Script
-          id="onesignal"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.OneSignal = window.OneSignal || [];
-              OneSignal.push(function() {
-                OneSignal.init({
-                  appId: "${process.env.NEXT_PUBLIC_os_appId || ''}",
-                  safari_web_id: "${process.env.NEXT_PUBLIC_os_safari_web_id}",
-                  notifyButton: { enable: false },
-                  allowLocalhostAsSecureOrigin: true,
-                });
-              });
-            `,
-          }}
-        />
       </head>
      
       <body
