@@ -64,6 +64,7 @@ export default function RootLayout({
 
 
         <Script
+          id="onesignal"
           dangerouslySetInnerHTML={{
             __html: `
               window.OneSignal = window.OneSignal || [];
