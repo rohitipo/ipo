@@ -28,10 +28,10 @@ const Footer = () => {
                     <div className="text-center text-white text-xl mb-4">
                     <h2 className="text-[#959EAD] text-xl lg:text-2xl">Social Links</h2>
                     <div className="flex gap-4 justify-center m-2">
-                    <Link href={'https://www.instagram.com/ipoanalyser.in?igsh=bTlseW4xYjM0dmpq'}><FaInstagram/></Link>
-                    <Link href={'https://www.facebook.com/share/1CEPieuB9E/'}><FaFacebookF/></Link>
-                    <Link href={'https://x.com/ipoanalyser_in?s=08'}><FaTwitter/></Link>
-                    <Link href={'https://t.me/+pjgIVheOUT42Mzc1'}><FaTelegram/></Link>
+                    <Link href={'https://www.instagram.com/ipoanalyser.in?igsh=bTlseW4xYjM0dmpq'}><FaInstagram size={28}/></Link>
+                    <Link href={'https://www.facebook.com/share/1CEPieuB9E/'}><FaFacebookF size={28}/></Link>
+                    <Link href={'https://x.com/ipoanalyser_in?s=08'}><FaTwitter size={28}/></Link>
+                    <Link href={'https://t.me/+pjgIVheOUT42Mzc1'}><FaTelegram size={28}/></Link>
                     </div>
                 </div>
                 </div>
@@ -90,11 +90,11 @@ const Footer = () => {
 
                 <div className="text-center text-white text-lg mb-4">
                     <h2 className="text-[#959EAD] text-lg">Social Links</h2>
-                    <div className="flex justify-between m-2">
-                    <Link href={'https://www.instagram.com/ipoanalyser.in?igsh=bTlseW4xYjM0dmpq'}><FaInstagram/></Link>
-                    <Link href={'https://www.facebook.com/share/1CEPieuB9E/'}><FaFacebookF/></Link>
-                    <Link href={'https://x.com/ipoanalyser_in?s=08'}><FaTwitter/></Link>
-                    <Link href={'https://t.me/+pjgIVheOUT42Mzc1'}><FaTelegram/></Link>
+                    <div className="flex justify-between m-2 gap-2">
+                    <Link href={'https://www.instagram.com/ipoanalyser.in?igsh=bTlseW4xYjM0dmpq'}><FaInstagram size={28}/></Link>
+                    <Link href={'https://www.facebook.com/share/1CEPieuB9E/'}><FaFacebookF size={28}/></Link>
+                    <Link href={'https://x.com/ipoanalyser_in?s=08'}><FaTwitter size={28}/></Link>
+                    <Link href={'https://t.me/+pjgIVheOUT42Mzc1'}><FaTelegram size={28}/></Link>
                     </div>
                 </div>
 

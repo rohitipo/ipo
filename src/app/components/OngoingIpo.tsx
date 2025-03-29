@@ -27,6 +27,15 @@ interface IPO {
     ipoType?: string;
     subscriptionData?: { multiplier?: number }[];
 }
+
+
+const statusOrder: Record<string, number> = {
+    "Live": 1,
+    "Upcoming": 2,
+    "Closed": 3
+};
+
+
 const OngoingIPO = () => {
     const [ipoData, setIpoData] = useState<IPO[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -57,27 +66,31 @@ const OngoingIPO = () => {
     const ongoingIPOs = ipoData
     .filter((ipo) => {
         const today = new Date();
-        const currentMonth = today.toLocaleString("en-US", { month: "long" }); // "March"
-        const currentYear = today.getFullYear(); // 2025
+        const currentMonth = today.toLocaleString("en-US", { month: "long" });
+        const currentYear = today.getFullYear();
 
         if (ipo.estimatedMonth && ipo.estimatedYear) {
-            // Include IPOs where estimated month is the current month and year
             return (
                 ipo.estimatedMonth === currentMonth &&
                 Number(ipo.estimatedYear) === currentYear
             );
         }
 
-        if (!ipo.openDate) return false; // Exclude IPOs without an open date
+        if (!ipo.openDate) return false;
         const openDate = new Date(ipo.openDate);
-        return openDate >= pastLimit && openDate <= futureLimit; // Include IPOs in the 15-day range
+        return openDate >= pastLimit && openDate <= futureLimit;
     })
     .sort((a, b) => {
-        const today = new Date();
-        const currentMonth = today.toLocaleString("en-US", { month: "long" }); // "March"
-        const currentYear = today.getFullYear(); // 2025
+        // Prioritize by status order
+        const aStatus = statusOrder[a.status || "Closed"] || 4;
+        const bStatus = statusOrder[b.status || "Closed"] || 4;
 
-        // Prioritize IPOs with estimatedMonth equal to the ongoing month and year
+        if (aStatus !== bStatus) return aStatus - bStatus;
+
+        const today = new Date();
+        const currentMonth = today.toLocaleString("en-US", { month: "long" });
+        const currentYear = today.getFullYear();
+
         const aIsCurrentMonth =
             a.estimatedMonth === currentMonth && Number(a.estimatedYear) === currentYear;
         const bIsCurrentMonth =
@@ -86,11 +99,9 @@ const OngoingIPO = () => {
         if (aIsCurrentMonth && !bIsCurrentMonth) return -1;
         if (!aIsCurrentMonth && bIsCurrentMonth) return 1;
 
-        // Prioritize IPOs with estimated month over those with openDate
         if (a.estimatedMonth && !b.estimatedMonth) return -1;
         if (!a.estimatedMonth && b.estimatedMonth) return 1;
 
-        // Sort IPOs by openDate in descending order (latest first)
         return new Date(b.openDate || 0).getTime() - new Date(a.openDate || 0).getTime();
     });
 
@@ -121,41 +132,45 @@ const OngoingIPO = () => {
 
             {/* Scrollable Table */}
             <div className="w-full flex justify-center mt-10 p-4">
-                <div className="w-[80%] overflow-x-auto shadow-xl">
+                <div className="w-[90%] overflow-x-auto shadow-xl">
                     <h1 className="lg:hidden">Scroll the table to see all details</h1>
                     <div className="min-w-[1000px]">
                        
                             <Table className="w-full text-center text-lg">
                                 <TableHeader>
                                     <TableRow>
-                                        <TableHead className="text-center">IPO Name</TableHead>
-                                        <TableHead className="text-center">Open Date</TableHead>
-                                        <TableHead className="text-center">Close Date</TableHead>
-                                        <TableHead className="text-center">Price</TableHead>
-                                        <TableHead className="text-center">GMP</TableHead>
-                                        <TableHead className="text-center">Status</TableHead>
-                                        <TableHead className="text-center">Issue Size</TableHead>
-                                        <TableHead className="text-center">Type</TableHead>
-                                        <TableHead className="text-center">Subscribed</TableHead>
+                                        <TableHead className="text-center text-black font-bold">IPO Name</TableHead>
+                                        <TableHead className="text-center text-black font-bold">Open Date</TableHead>
+                                        <TableHead className="text-center text-black font-bold">Close Date</TableHead>
+                                        <TableHead className="text-center text-black font-bold">Price</TableHead>
+                                        <TableHead className="text-center text-black font-bold">GMP</TableHead>
+                                        <TableHead className="text-center text-black font-bold">Status</TableHead>
+                                        <TableHead className="text-center text-black font-bold">Issue Size</TableHead>
+                                        <TableHead className="text-center text-black font-bold">Type</TableHead>
+                                        <TableHead className="text-center text-black font-bold">Subscribed</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {ongoingIPOs.length > 0 ? (
                                         ongoingIPOs.map((ipo, index) => (
                                             <TableRow key={index}>
-                                                <TableCell className="font-medium underline text-left">
+                                                <TableCell className="font-bold text-blue-800 underline text-left">
                                                     <Link href={`/ipo/${ipo.id}`}>
                                                         {ipo.name}
                                                     </Link>
                                                 </TableCell>
+                                                
                                                 <TableCell>
+                                                    <Link href={`/ipo/${ipo.id}`}>
                                                     {ipo.estimatedMonth && ipo.estimatedYear 
                                                         ? `${ipo.estimatedMonth} ${ipo.estimatedYear}` 
                                                         : formatDate(ipo.openDate)}
+                                                        </Link>
                                                     </TableCell>
-                                                <TableCell>{formatDate(ipo.closingDate || "-")}</TableCell>
-                                                <TableCell>{ipo.priceBand || "N/A"}</TableCell>
-                                                <TableCell>{ipo.gmpData?.[ipo.gmpData.length - 1]?.gmp || "N/A"}</TableCell>
+                                                    
+                                                <TableCell><Link href={`/ipo/${ipo.id}`}> {formatDate(ipo.closingDate || "-")} </Link></TableCell>
+                                                <TableCell><Link href={`/ipo/${ipo.id}`}> {ipo.priceBand || "N/A"} </Link></TableCell>
+                                                <TableCell><Link href={`/ipo/${ipo.id}`}> {ipo.gmpData?.[ipo.gmpData.length - 1]?.gmp || "N/A"} </Link></TableCell>
                                                  {/* Conditional Status Styling */}
                                                     <TableCell
                                                     className={`font-semibold ${
@@ -163,14 +178,16 @@ const OngoingIPO = () => {
                                                             ? "text-green-500 animate-blink"
                                                             : ipo.status === "Closed"
                                                             ? "text-red-500"
-                                                            : "text-gray-600"
+                                                            : "text-blue-600"
                                                     }`}
                                                     >
+                                                        <Link href={`/ipo/${ipo.id}`}>
                                                     {ipo.status || "N/A"}
+                                                    </Link>
                                                     </TableCell>
-                                                <TableCell>{ipo.offerSize || "N/A"}</TableCell>
-                                                <TableCell>{ipo.ipoType || "N/A"}</TableCell>
-                                                <TableCell>{ipo.subscriptionData?.[ipo.subscriptionData.length - 1]?.multiplier}X</TableCell>
+                                                <TableCell><Link href={`/ipo/${ipo.id}`}>{ipo.offerSize || "N/A"} </Link></TableCell>
+                                                <TableCell><Link href={`/ipo/${ipo.id}`}>{ipo.ipoType || "N/A"} </Link></TableCell>
+                                                <TableCell><Link href={`/ipo/${ipo.id}`}>{ipo.subscriptionData?.[ipo.subscriptionData.length - 1]?.multiplier}X</Link></TableCell>
                                             </TableRow>
                                         ))
                                     ) : (
