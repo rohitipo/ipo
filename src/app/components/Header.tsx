@@ -40,7 +40,7 @@ const Header = () => {
 
 
   return (
-    <header className="w-full flex text-[#183B56] font-semibold justify-between items-center px-10 lg:px-[180px] py-2 h-24">
+    <header className="w-full flex text-[#183B56] font-semibold justify-between lg:justify-start items-center px-10 lg:px-[100px] py-2 h-24">
       {/* Desktop Logo */}
       <div className="hidden text-5xl lg:block">
         <Link href="/">
@@ -49,7 +49,7 @@ const Header = () => {
       </div>
 
       {/* Desktop Navigation */}
-      <div className="hidden lg:flex gap-8">
+      <div className="hidden lg:flex gap-8 ml-10">
         <Link href="/" className="hover:text-blue-500">Home</Link>
         <Link href="/articles" className="hover:text-blue-500">Articles</Link>
         <Link href="/aboutUs" className="hover:text-blue-500">About Us</Link>
@@ -78,13 +78,14 @@ const Header = () => {
       </div>
 
     {/* Mobile Header */}
-    <div className="lg:hidden">
-        <Image src='/images/ipologo.png' alt="Logo" className="h-[48px] w-auto" width={63} height={48} />
-      </div>
+    
       <div className="lg:hidden">
         <button onClick={() => setIsOpen(!isOpen)}>
           <Menu size={24} />
         </button>
+      </div>
+      <div className="lg:hidden">
+        <Image src='/images/ipologo.png' alt="Logo" className="h-[48px] w-auto" width={63} height={48} />
       </div>
 
       {/* Mobile Sidebar */}

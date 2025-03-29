@@ -112,14 +112,19 @@ const UpcomingIPOs = () => {
           {filteredIPOs.length > 0 ? (
               filteredIPOs.map((ipo) => (
                 <TableRow key={ipo.id}>
-                  <TableCell>
-                    <Link href={`/ipo/${ipo.id}`} className="underline font-medium">{ipo.name}</Link>
+                  <TableCell className="font-bold text-blue-800 underline">
+                    <Link href={`/ipo/${ipo.id}`} >{ipo.name}</Link>
                   </TableCell>
                   <TableCell>{ipo.estimatedMonth && ipo.estimatedYear 
                                                         ? `${ipo.estimatedMonth} ${ipo.estimatedYear}` 
                                                         : formatDate(ipo.openDate)}</TableCell>
                   <TableCell>{ipo.priceBand}</TableCell>
-                  <TableCell>{ipo.ipoType}</TableCell>
+                  <TableCell className={`font-semibold ${
+                                                        ipo.ipoType === "Mainboard"
+                                                            ? "text-red-500"
+                                                            
+                                                            : "text-blue-600"
+                                                    }`}>{ipo.ipoType}</TableCell>
                   <TableCell>{ipo.offerSize}</TableCell>
                 </TableRow>
               ))
@@ -146,8 +151,8 @@ const UpcomingIPOs = () => {
             {mainboardIPOs.length > 0 ? (
               mainboardIPOs.map((ipo) => (
                 <TableRow key={ipo.id}>
-                  <TableCell>
-                    <Link href={`/ipo/${ipo.id}`} className="underline font-medium">{ipo.name}</Link>
+                  <TableCell className="font-bold text-blue-800 underline">
+                    <Link href={`/ipo/${ipo.id}`} >{ipo.name}</Link>
                   </TableCell>
                   <TableCell>{ipo.openDate}</TableCell>
                   <TableCell>{ipo.priceBand}</TableCell>
@@ -175,8 +180,8 @@ const UpcomingIPOs = () => {
             {smeIPOs.length > 0 ? (
               smeIPOs.map((ipo) => (
                 <TableRow key={ipo.id}>
-                  <TableCell>
-                    <Link href={`/ipo/${ipo.id}`} className="underline font-medium">{ipo.name}</Link>
+                  <TableCell className="font-bold text-blue-800 underline">
+                    <Link href={`/ipo/${ipo.id}`} >{ipo.name}</Link>
                   </TableCell>
                   <TableCell>{ipo.openDate}</TableCell>
                   <TableCell>{ipo.priceBand}</TableCell>
