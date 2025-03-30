@@ -106,7 +106,7 @@ export default function IPOCard() {
       .then((data) => {
         if (data.success) {
           setIpoDetails(data.data);
-          console.log(data.data)
+          
         } else {
           console.error("IPO not found");
         }
@@ -140,11 +140,17 @@ export default function IPOCard() {
 
 const scrollToSection = (id: string) => {
     const section = document.getElementById(id);
+    const offset = 150; // Adjust this value based on your sticky header height
+
     if (section) {
-        window.scrollTo({ top: section.getBoundingClientRect().top + window.scrollY, behavior: "smooth" });
+        window.scrollTo({ 
+            top: section.getBoundingClientRect().top + window.scrollY - offset, 
+            behavior: "smooth" 
+        });
         setShowMore(false); // Close "More" dropdown after selection
     }
 };
+
 
 useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -180,9 +186,10 @@ return () => clearTimeout(timeout);
         <Loader />
       ) : (
         
-        <div className="flex flex-col min-h-screen">
-            <div className={`fixed top-0 left-0 right-0 bg-white z-10 transition-all duration-300 ${shrink ? "py-2 md:py-1" : "py-4 md:py-2"}`}>
-                <Header />
+        <div className="flex flex-col">
+            <Header />
+            <div className={`sticky top-0 left-0 right-0 bg-white z-10 transition-all duration-300`}>
+                
                 <div className={`text-left font-mono font-bold transition-all duration-300 ${shrink ? "text-xl md:text-3xl p-1" : "text-2xl md:text-4xl p-2"}`}>
                     {ipoDetails?.name}
                 </div>
@@ -224,7 +231,7 @@ return () => clearTimeout(timeout);
                 <hr />
             </div>
 
-            <div className="flex-1 overflow-y-auto pt-[320px] lg:pt-[320px] p-4">
+            <div className="flex-1 overflow-y-auto p-4">
                 {/* Scrollable Content */}
                 <div id="ipo-details">{ipoDetails ? <IpoDetails ipo={ipoDetails} /> : <p></p>}</div>
 

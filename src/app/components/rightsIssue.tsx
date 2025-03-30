@@ -32,7 +32,7 @@ const RightsIssueTables: React.FC = () => {
   };
 
   return (
-    <div className='space-y-6'>
+    <div className='space-y-6 p-4'>
         <h1 className='text-2xl font-bold'>RIGHTS ISSUE 2025</h1>
       {allYears.map((year) => {
         const rightsIssues = (rightsIssueData as RightsIssueType)[year] || []; // Type assertion
