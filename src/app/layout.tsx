@@ -8,7 +8,7 @@ import OneSignalProvider from "./provider/OneSignalProvider";
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID;
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
-console.log(adsenseClientId)
+
 
 
 

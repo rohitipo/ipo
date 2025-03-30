@@ -88,9 +88,6 @@ const BuyBackTables: React.FC = () => {
           </div>
         );
       })}
-      <div className=''>
-        <RightsIssueTables/>
-      </div>
     </div>
     <NewsLetter/>
     <Footer/>

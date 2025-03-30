@@ -17,15 +17,16 @@ interface FundamentalsFormProps {
 
 const defaultFundamentals: FundamentalEntry[] = [
   { label: "MARKET CAP", value: "" },
-  { label: "Current Price", value: "" },
+  { label: "PAT Margin", value: "" },
   { label: "Stock P/E vs Sector P/E", value: "" },
-  { label: "Book Value", value: "" },
-  { label: "Dividend Yield", value: "" },
+  { label: "Earning Per Share (EPS)", value: "" },
+  { label: "Return On Networth (RONWI)", value: "" },
   { label: "ROCE", value: "" },
   { label: "ROE", value: "" },
   { label: "Face Value", value: "" },
   { label: "EBITDA Margin", value: "" },
   { label: "Debt to Equity", value: "" },
+  { label: "Net Asset Value (NAV)", value: "" },
 ];
 
 const FundamentalsForm: React.FC<FundamentalsFormProps> = ({ fundamentals, setFundamentals }) => {

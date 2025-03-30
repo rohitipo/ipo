@@ -70,7 +70,8 @@ const Header = () => {
               <Link href="/ipoCalendar" className="block px-4 py-2 hover:bg-gray-100">IPO Calendar</Link>
               <Link href="/faq" className="block px-4 py-2 hover:bg-gray-100">FAQ (IPOs and GMP)</Link>
               <Link href="#" className="block px-4 py-2 hover:bg-gray-100">News (Coming Soon)</Link>
-              <Link href="/buyBack" className="block px-4 py-2 hover:bg-gray-100">More</Link>
+              <Link href="/buyBack" className="block px-4 py-2 hover:bg-gray-100">Buyback</Link>
+              <Link href="/rightIssue" className="block px-4 py-2 hover:bg-gray-100">Right Issue</Link>
             </div>
           )}
         </div>
@@ -85,7 +86,8 @@ const Header = () => {
         </button>
       </div>
       <div className="lg:hidden">
-        <Image src='/images/ipologo.png' alt="Logo" className="h-[48px] w-auto" width={63} height={48} />
+        <Link href={'/'}>
+        <Image src='/images/ipologo.png' alt="Logo" className="h-[48px] w-auto" width={63} height={48} /></Link>
       </div>
 
       {/* Mobile Sidebar */}
@@ -115,7 +117,8 @@ const Header = () => {
                   <Link href="/ipoCalendar" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>IPO Calendar</Link>
                   <Link href="/faq" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>FAQ (IPOs and GMP)</Link>
                   <Link href="#" className="block px-4 py-2 hover:bg-gray-100">News (Coming Soon)</Link>
-                  <Link href="/buyBack" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>More</Link>
+                  <Link href="/buyBack" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>Buyback</Link>
+                  <Link href="/rightIssue" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>Right Issue</Link>
                 </div>
               )}
             </div>
