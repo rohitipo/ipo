@@ -102,26 +102,43 @@ const Header = () => {
             <Link href="/aboutUs" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>About Us</Link>
 
             {/* Mobile Dropdown */}
-            <div ref={mobileDropdownRef}>
-              <button
-                onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
-                className="flex items-center gap-1 hover:text-blue-500"
-              >
-                IPOs <ChevronDown size={16} />
-              </button>
-              {mobileDropdownOpen && (
-                <div className="absolute w-40 bg-white text-black shadow-md rounded-md p-2">
-                  <Link href="/upcomingIpo" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>Upcoming IPOs</Link>
-                  <Link href="/recentIpo" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>Recently Closed IPOs</Link>
-                  <Link href="/allotmentStat" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>Check Allotment</Link>
-                  <Link href="/ipoCalendar" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>IPO Calendar</Link>
-                  <Link href="/faq" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>FAQ (IPOs and GMP)</Link>
-                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100">News (Coming Soon)</Link>
-                  <Link href="/buyBack" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>Buyback</Link>
-                  <Link href="/rightIssue" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>Right Issue</Link>
-                </div>
-              )}
-            </div>
+            <div ref={mobileDropdownRef} className="relative">
+                <button
+                  onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
+                  className="flex items-center gap-1 hover:text-blue-500"
+                >
+                  IPOs <ChevronDown size={16} />
+                </button>
+                {mobileDropdownOpen && (
+                  <div className="absolute w-44 bg-white text-black shadow-md rounded-md p-2 max-h-80 overflow-y-auto">
+                    <Link href="/upcomingIpo" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+                      Upcoming IPOs
+                    </Link>
+                    <Link href="/recentIpo" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+                      Recently Closed IPOs
+                    </Link>
+                    <Link href="/allotmentStat" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+                      Check Allotment
+                    </Link>
+                    <Link href="/ipoCalendar" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+                      IPO Calendar
+                    </Link>
+                    <Link href="/faq" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+                      FAQ (IPOs and GMP)
+                    </Link>
+                    <Link href="#" className="block px-4 py-2 hover:bg-gray-100">
+                      News (Coming Soon)
+                    </Link>
+                    <Link href="/buyBack" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+                      Buyback
+                    </Link>
+                    <Link href="/rightIssue" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+                      Right Issue
+                    </Link>
+                  </div>
+                )}
+              </div>
+
 
             <Link href="/policy" className="hover:text-gray-400" onClick={() => setIsOpen(false)}>Policy</Link>
           </nav>
