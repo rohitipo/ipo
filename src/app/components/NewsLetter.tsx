@@ -1,9 +1,40 @@
 'use client'
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
+import toast from "react-hot-toast";
 
-const NewsLetter = () =>{
+
+const NewsLetter: React.FC = () => {
+    const [email, setEmail] = useState<string>("");
+    const [message, setMessage] = useState<string>("");
+
+    const handleSubscribe = async () => {
+        if (!email.includes("@")) {
+            setMessage("Please enter a valid email address.");
+            return;
+        }
+
+        try {
+            const response = await fetch("/api/subscribe", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email })
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                toast.success("Subscribed successfully!");
+                setEmail("") 
+            } else {
+                toast.error(data.message);
+            }// Clear input after submission
+        } catch (error) {
+            toast.error("Error subscribing. Please try again.");
+        }
+    };
 
     return(
         <div>
@@ -17,11 +48,14 @@ const NewsLetter = () =>{
                         <h3 className="text-xl p-2">Unveiling IPO Opportunities to Help You Invest Confidently,<br /> Get Key Insights on Price Bands, GMP, and Issue Sizes</h3>
                         <div className="flex items-center gap-4 p-2 rounded-lg">
                             <input
-                                type="text"
+                                type="email"
                                 placeholder="Your Email"
-                                className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="p-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
-                            <button className="px-4 py-2 bg-[#1565D8] text-white rounded-lg hover:bg-blue-600 transition">
+                            <button className="px-4 py-2 bg-[#1565D8] text-white rounded-lg hover:bg-blue-600 transition" 
+                            onClick={handleSubscribe}>
                                 Get Started
                             </button>
                         </div>
@@ -60,11 +94,13 @@ const NewsLetter = () =>{
                         <h3 className="text-lg p-2">Unveiling IPO Opportunities to Help You Invest Confidently,<br /> Get Key Insights on Price Bands, GMP, and Issue Sizes</h3>
                         <div className="flex justify-center items-center gap-4 p-2 rounded-lg">
                             <input
-                                type="text"
+                                type="email"
                                 placeholder="Your Email"
-                                className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="p-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
-                            <button className="px-4 py-2 bg-[#1565D8] text-white rounded-lg hover:bg-blue-600 transition">
+                            <button className="px-4 py-2 bg-[#1565D8] text-white rounded-lg hover:bg-blue-600 transition" onClick={handleSubscribe}>
                                 Get Started
                             </button>
                         </div>

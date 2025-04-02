@@ -22,3 +22,18 @@ body {
 .animate-blink {
   animation: blink 1s infinite;
 }
+
+
+/* Custom scrollbar */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px; /* Adjust scrollbar width */
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #a0a0a0; /* Scrollbar color */
+  border-radius: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #e0e0e0; /* Track color */
+}
