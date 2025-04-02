@@ -110,7 +110,7 @@ const Header = () => {
                   IPOs <ChevronDown size={16} />
                 </button>
                 {mobileDropdownOpen && (
-                  <div className="absolute w-44 bg-white text-black shadow-md rounded-md p-2 max-h-80 overflow-y-auto">
+                  <div  className="absolute w-44 bg-white text-black shadow-md rounded-md p-2 max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-800">
                     <Link href="/upcomingIpo" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
                       Upcoming IPOs
                     </Link>
