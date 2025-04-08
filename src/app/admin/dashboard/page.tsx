@@ -6,6 +6,9 @@ import { FaBars, FaTachometerAlt, FaFileAlt, FaCog, FaSignOutAlt, FaTimes } from
 import { toast } from "react-hot-toast";
 import IpoMultiStepForm from "@/app/admin/AddIpo/AddIpo";
 import UpdateIpo from "@/app/components/admin/updateComponent/UpdateIpo";
+import { signOut } from "firebase/auth";
+import { auth } from "@/lib/firebaseConfig";
+import Cookies from "js-cookie";
 
 const Dashboard = () => {
   const [activePage, setActivePage] = useState("Dashboard");
@@ -13,12 +16,19 @@ const Dashboard = () => {
 
   const router = useRouter();
 
-  const handleLogout = (e: any) => {
-    router.push('/admin/login');
+  const handleLogout = async (e: any) => {
     e.preventDefault();
-    toast.success("Logout Successful!");
+  
+    try {
+      await signOut(auth);
+      Cookies.remove("auth");
+      toast.success("Logout Successful!");
+      router.push("/admin/login");
+    } catch (error) {
+      console.error("Error during logout:", error);
+      toast.error("Logout failed!");
+    }
   };
-
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
