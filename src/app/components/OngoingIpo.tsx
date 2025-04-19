@@ -151,7 +151,13 @@ const OngoingIPO = () => {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {ongoingIPOs.length > 0 ? (
+                                {loading ? (
+                                    <TableRow>
+                                    <TableCell colSpan={9} className="text-center font-semibold text-gray-600">
+                                    <Loader />
+                                    </TableCell>
+                                    </TableRow>
+                                    ) : ongoingIPOs.length > 0 ? (
                                         ongoingIPOs.map((ipo, index) => (
                                             <TableRow key={index}>
                                                 <TableCell className="font-bold text-blue-800 underline text-left">
@@ -192,8 +198,8 @@ const OngoingIPO = () => {
                                         ))
                                     ) : (
                                         <TableRow>
-                                            <TableCell colSpan={7} className="text-center font-semibold text-gray-600">
-                                              <Loader/>
+                                            <TableCell colSpan={9} className="text-center font-semibold text-gray-600">
+                                                No Ongoing IPOs found, please check upcoming and recently closed Ipos.
                                             </TableCell>
                                         </TableRow>
                                     )}
