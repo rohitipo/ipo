@@ -20,7 +20,7 @@ const defaultFundamentals: FundamentalEntry[] = [
   { label: "PAT Margin", value: "" },
   { label: "Stock P/E vs Sector P/E", value: "" },
   { label: "Earning Per Share (EPS)", value: "" },
-  { label: "Return On Networth (RONWI)", value: "" },
+  { label: "Return On Networth (RONW)", value: "" },
   { label: "ROCE", value: "" },
   { label: "ROE", value: "" },
   { label: "Face Value", value: "" },
