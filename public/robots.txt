@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://ipoanalyser.in/
+
+# Sitemaps
+Sitemap: https://ipoanalyser.in/sitemap.xml
