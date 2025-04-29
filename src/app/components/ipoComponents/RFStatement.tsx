@@ -23,7 +23,8 @@ const RFStatement: React.FC<RFStatementProps> = ({ financialData }) => {
           <CardTitle className="text-lg">RESTATED FINANCIAL STATEMENT</CardTitle>
         </CardHeader>
         <CardContent>
-          <Table>
+        <div className="overflow-x-auto">
+          <Table  className="min-w-[600px]">
             <TableHeader>
               <TableRow className="bg-gray-100">
                 <TableHead className="w-1/3">PARTICULARS</TableHead>
@@ -43,6 +44,7 @@ const RFStatement: React.FC<RFStatementProps> = ({ financialData }) => {
               ))}
             </TableBody>
           </Table>
+          </div>
         </CardContent>
       </Card>
     </div>
