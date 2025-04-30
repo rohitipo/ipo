@@ -8,6 +8,7 @@ import OneSignalProvider from "./provider/OneSignalProvider";
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID;
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
+const CON_TRACKING_ID = process.env.NEXT_PUBLIC_CON_TRACKING_ID;
 
 
 
@@ -64,12 +65,29 @@ export default function RootLayout({
           }}
         />
 
+        
+
      
                     <script
                         async
                         src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`}
                         crossOrigin="anonymous"
                     ></script>
+
+
+ {/* Global site tag (gtag.js) */}
+ <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${CON_TRACKING_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${CON_TRACKING_ID}');
+          `}
+        </Script>
     
       </head>
      
