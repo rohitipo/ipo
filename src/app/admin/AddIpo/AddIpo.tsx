@@ -66,6 +66,7 @@ interface IpoFormData {
   estimatedYear?: string;
   ipoType?:string;
   priceBand?: string;
+  exactPrice?:number;
   faceValue?: string;
   lotSize?: string;
   offerSize?: string;
@@ -103,6 +104,7 @@ export default function IpoMultiStepForm() {
     estimatedYear: "",
     ipoType:"",
     priceBand: "",
+    exactPrice:0,
     faceValue: "",
     lotSize: "",
     offerSize: "",
@@ -179,6 +181,7 @@ export default function IpoMultiStepForm() {
           estimatedYear: "",
           ipoType: "",
           priceBand: "",
+          exactPrice:0,
           faceValue: "",
           lotSize: "",
           offerSize: "",
@@ -308,6 +311,7 @@ export default function IpoMultiStepForm() {
           </label>
 
           <input type="text" name="priceBand" value={formData.priceBand} onChange={handleChange} placeholder="Price Band" className="w-full p-2 border rounded" />
+          <input type="number" name="exactPrice" value={formData.exactPrice} onChange={handleChange} placeholder="Exact Price" className="w-full p-2 border rounded" />
           <input type="text" name="faceValue" value={formData.faceValue} onChange={handleChange} placeholder="Face Value" className="w-full p-2 border rounded" />
           <input type="text" name="lotSize" value={formData.lotSize} onChange={handleChange} placeholder="Lot Size" className="w-full p-2 border rounded" />
           <input type="text" name="offerSize" value={formData.offerSize} onChange={handleChange} placeholder="Offer Size" className="w-full p-2 border rounded" />

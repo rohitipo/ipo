@@ -19,6 +19,7 @@ interface IPO {
     openDate?: string;
     closingDate?: string;
     priceBand?: string;
+    exactPrice?: number;
     estimatedMonth?: string; // New field for estimated month
     estimatedYear?: string;
     gmpData?: { gmp?: number }[];
@@ -145,6 +146,7 @@ const OngoingIPO = () => {
                                         <TableHead className="text-center text-black font-bold">Price</TableHead>
                                         <TableHead className="text-center text-black font-bold">GMP</TableHead>
                                         <TableHead className="text-center text-black font-bold">Status</TableHead>
+                                        <TableHead className="text-center text-black font-bold">Gain</TableHead>
                                         <TableHead className="text-center text-black font-bold">Issue Size</TableHead>
                                         <TableHead className="text-center text-black font-bold">Type</TableHead>
                                         <TableHead className="text-center text-black font-bold">Subscribed</TableHead>
@@ -191,6 +193,15 @@ const OngoingIPO = () => {
                                                     {ipo.status || "N/A"}
                                                     </Link>
                                                     </TableCell>
+                                                    <TableCell>
+                                                        <Link href={`/ipo/${ipo.id}`}>
+                                                            {ipo.exactPrice && ipo.gmpData?.length && ipo.gmpData[ipo.gmpData.length - 1]?.gmp !== undefined
+                                                            ? `${((ipo.gmpData[ipo.gmpData.length - 1]!.gmp! / ipo.exactPrice) * 100).toFixed(2)}%`
+                                                            : "N/A"}
+                                                        </Link>
+                                                        </TableCell>
+
+
                                                 <TableCell><Link href={`/ipo/${ipo.id}`}>{ipo.offerSize || "N/A"} </Link></TableCell>
                                                 <TableCell><Link href={`/ipo/${ipo.id}`}>{ipo.ipoType || "N/A"} </Link></TableCell>
                                                 <TableCell><Link href={`/ipo/${ipo.id}`}>{ipo.subscriptionData?.[ipo.subscriptionData.length - 1]?.multiplier}X</Link></TableCell>

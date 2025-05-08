@@ -30,6 +30,7 @@ export interface IPO {
     closingDate: string;
     listingDate: string;
     priceBand: string;
+    exactPrice: number;
     faceValue: string;
     lotSize: string;
     offerSize: string;
