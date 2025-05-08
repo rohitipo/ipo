@@ -72,6 +72,7 @@ interface Ipo {
   estimatedYear?: string;
   ipoType?: string;
   priceBand?: string;
+  exactPrice?:number;
   faceValue?: string;
   lotSize?: string;
   offerSize?: string;
