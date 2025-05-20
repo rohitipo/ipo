@@ -81,30 +81,44 @@ const OngoingIPO = () => {
         const openDate = new Date(ipo.openDate);
         return openDate >= pastLimit && openDate <= futureLimit;
     })
-    .sort((a, b) => {
-        // Prioritize by status order
-        const aStatus = statusOrder[a.status || "Closed"] || 4;
-        const bStatus = statusOrder[b.status || "Closed"] || 4;
+   .sort((a, b) => {
+    // Prioritize by status order
+    const aStatus = statusOrder[a.status || "Closed"] || 4;
+    const bStatus = statusOrder[b.status || "Closed"] || 4;
 
-        if (aStatus !== bStatus) return aStatus - bStatus;
+    if (aStatus !== bStatus) return aStatus - bStatus;
 
-        const today = new Date();
-        const currentMonth = today.toLocaleString("en-US", { month: "long" });
-        const currentYear = today.getFullYear();
+    // Additional logic for Upcoming IPOs
+    if (a.status === "Upcoming" && b.status === "Upcoming") {
+        const aHasExactDate = !!a.openDate;
+        const bHasExactDate = !!b.openDate;
 
-        const aIsCurrentMonth =
-            a.estimatedMonth === currentMonth && Number(a.estimatedYear) === currentYear;
-        const bIsCurrentMonth =
-            b.estimatedMonth === currentMonth && Number(b.estimatedYear) === currentYear;
+        if (aHasExactDate && !bHasExactDate) return -1; // exact date first
+        if (!aHasExactDate && bHasExactDate) return 1;
 
-        if (aIsCurrentMonth && !bIsCurrentMonth) return -1;
-        if (!aIsCurrentMonth && bIsCurrentMonth) return 1;
+        // If both have exact dates, sort by openDate descending (latest first)
+        if (aHasExactDate && bHasExactDate) {
+            return new Date(b.openDate!).getTime() - new Date(a.openDate!).getTime();
+        }
+    }
 
-        if (a.estimatedMonth && !b.estimatedMonth) return -1;
-        if (!a.estimatedMonth && b.estimatedMonth) return 1;
+    const today = new Date();
+    const currentMonth = today.toLocaleString("en-US", { month: "long" });
+    const currentYear = today.getFullYear();
 
-        return new Date(b.openDate || 0).getTime() - new Date(a.openDate || 0).getTime();
-    });
+    const aIsCurrentMonth =
+        a.estimatedMonth === currentMonth && Number(a.estimatedYear) === currentYear;
+    const bIsCurrentMonth =
+        b.estimatedMonth === currentMonth && Number(b.estimatedYear) === currentYear;
+
+    if (aIsCurrentMonth && !bIsCurrentMonth) return -1;
+    if (!aIsCurrentMonth && bIsCurrentMonth) return 1;
+
+    if (a.estimatedMonth && !b.estimatedMonth) return -1;
+    if (!a.estimatedMonth && b.estimatedMonth) return 1;
+
+    return new Date(b.openDate || 0).getTime() - new Date(a.openDate || 0).getTime();
+});
 
     const formatDate = (date?: string) => {
         if (!date || isNaN(new Date(date).getTime())) return "N/A";
