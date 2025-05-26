@@ -4,36 +4,59 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { v4 as uuidv4 } from "uuid"; // for unique IDs
 
 interface FinancialEntry {
+  id: string;
   metric: string;
-  fy2022: string;
-  fy2023: string;
-  fy2024: string;
+  values: string[];
 }
 
 interface RFStatementFormProps {
   financialData: FinancialEntry[];
-  setFinancialData: (newData: FinancialEntry[]) => void;
+  setFinancialData: (data: FinancialEntry[]) => void;
+  financialYears: string[];
+  setFinancialYears: (years: string[]) => void;
 }
 
-const RFStatementForm: React.FC<RFStatementFormProps> = ({ financialData, setFinancialData }) => {
+const RFStatementForm: React.FC<RFStatementFormProps> = ({
+  financialData,
+  setFinancialData,
+  financialYears,
+  setFinancialYears,
+}) => {
   const handleChange = (index: number, field: keyof FinancialEntry, value: string) => {
-    const updatedFinancialData = [...financialData];
-    updatedFinancialData[index] = { ...updatedFinancialData[index], [field]: value };
-    setFinancialData(updatedFinancialData);
+    const updated = [...financialData];
+    updated[index] = { ...updated[index], [field]: value };
+    setFinancialData(updated);
+  };
+
+  const handleValueChange = (rowIndex: number, colIndex: number, value: string) => {
+    const updated = [...financialData];
+    updated[rowIndex].values[colIndex] = value;
+    setFinancialData(updated);
   };
 
   const addRow = () => {
-    const newRow: FinancialEntry = { metric: "", fy2022: "", fy2023: "", fy2024: "" };
+    const newRow: FinancialEntry = {
+      id: uuidv4(),
+      metric: "",
+      values: Array(financialYears.length).fill(""),
+    };
     setFinancialData([...financialData, newRow]);
   };
 
   const removeRow = (index: number) => {
     if (financialData.length > 1) {
-      const updatedFinancialData = financialData.filter((_, i) => i !== index);
-      setFinancialData(updatedFinancialData);
+      const updated = financialData.filter((_, i) => i !== index);
+      setFinancialData(updated);
     }
+  };
+
+  const handleYearChange = (index: number, value: string) => {
+    const updatedYears = [...financialYears];
+    updatedYears[index] = value;
+    setFinancialYears(updatedYears);
   };
 
   return (
@@ -47,46 +70,45 @@ const RFStatementForm: React.FC<RFStatementFormProps> = ({ financialData, setFin
             <TableHeader>
               <TableRow className="bg-gray-100">
                 <TableHead className="w-1/4">PARTICULARS</TableHead>
-                <TableHead>FY 2022</TableHead>
-                <TableHead>FY 2023</TableHead>
-                <TableHead>FY 2024</TableHead>
+                {financialYears.map((year, index) => (
+                  <TableHead key={index}>
+                    <Input
+                      type="text"
+                      value={year}
+                      onChange={(e) => handleYearChange(index, e.target.value)}
+                      className="w-24"
+                    />
+                  </TableHead>
+                ))}
                 <TableHead>Action</TableHead>
               </TableRow>
             </TableHeader>
+
             <TableBody>
-              {financialData.map((item, index) => (
-                <TableRow key={index} className="even:bg-gray-50">
+              {financialData.map((entry, rowIndex) => (
+                <TableRow key={entry.id}>
                   <TableCell>
                     <Input
-                      type="text"
-                      value={item.metric}
-                      onChange={(e) => handleChange(index, "metric", e.target.value)}
-                      placeholder="Metric"
+                      value={entry.metric}
+                      onChange={(e) => handleChange(rowIndex, "metric", e.target.value)}
                     />
                   </TableCell>
+                  {financialYears.map((_, colIndex) => (
+                    <TableCell key={colIndex}>
+                      <Input
+                        value={entry.values[colIndex] || ""}
+                        onChange={(e) =>
+                          handleValueChange(rowIndex, colIndex, e.target.value)
+                        }
+                      />
+                    </TableCell>
+                  ))}
                   <TableCell>
-                    <Input
-                      type="text"
-                      value={item.fy2022}
-                      onChange={(e) => handleChange(index, "fy2022", e.target.value)}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <Input
-                      type="text"
-                      value={item.fy2023}
-                      onChange={(e) => handleChange(index, "fy2023", e.target.value)}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <Input
-                      type="text"
-                      value={item.fy2024}
-                      onChange={(e) => handleChange(index, "fy2024", e.target.value)}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <Button onClick={() => removeRow(index)} variant="destructive" size="sm">
+                    <Button
+                      onClick={() => removeRow(rowIndex)}
+                      variant="destructive"
+                      size="sm"
+                    >
                       Remove
                     </Button>
                   </TableCell>
@@ -94,8 +116,11 @@ const RFStatementForm: React.FC<RFStatementFormProps> = ({ financialData, setFin
               ))}
             </TableBody>
           </Table>
+
           <div className="mt-4 flex justify-end">
-            <Button onClick={addRow} variant="default">+ Add Row</Button>
+            <Button onClick={addRow} variant="default">
+              + Add Row
+            </Button>
           </div>
         </CardContent>
       </Card>
