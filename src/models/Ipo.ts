@@ -91,6 +91,7 @@ interface Ipo {
   marketLotData?: MarketLot[];
   timelineData?: Timeline[];
   companyFundamentals?: CompanyFundamental[];
+  financialYears: ["FY 2022", "FY 2023", "FY 2024"],
   financialData?: FinancialData[];
   promoterHoldings?: PromoterHolding[];
   prosCons?: ProsCons[];

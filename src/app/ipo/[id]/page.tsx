@@ -56,6 +56,7 @@ export interface IPO {
     timelineData: { title: string; date: string }[];
     companyFundamentals:  { label: string; value: string }[];
     financialData: [];
+     financialYears?: string[];
     promoterHoldings:{ label: string; value: string }[];
     prosCons: { pros: string[]; cons: string[] };
     votes: {
@@ -290,11 +291,16 @@ return () => clearTimeout(timeout);
                         )}</div>
 
 
-                <div id="financial-statement">{ipoDetails?.financialData ? (
-                            <RFStatement financialData={ipoDetails.financialData} />
-                        ) : (
-                            <p></p>
-                        )}</div>
+                <div id="financial-statement">
+                            {ipoDetails?.financialData && ipoDetails?.financialYears ? (
+                                <RFStatement
+                                financialData={ipoDetails.financialData}
+                                financialYears={ipoDetails.financialYears}
+                                />
+                            ) : (
+                                <p>No financial data available.</p>
+                            )}
+                            </div>
 
 
                 <div id="promoter-holdings">{ipoDetails?.promoterHoldings ? (

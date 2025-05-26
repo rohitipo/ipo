@@ -36,13 +36,11 @@ interface Subscription {
     value: string;
   }
 
-  interface FinancialEntry {
-    metric: string;
-    fy2022: string;
-    fy2023: string;
-    fy2024: string;
-  }
-  
+ interface FinancialEntry {
+  id: string;
+  metric: string;
+  values: string[]; // dynamically aligned with financialYears
+}
 
 
   interface MarketLotEntry {
@@ -90,6 +88,7 @@ interface IpoFormData {
   marketLotData?: MarketLotEntry[]; 
   timelineData?: TimelineEntry[];
   companyFundamentals?: FundamentalEntry[];
+  financialYears?: string[];
   financialData?: FinancialEntry[];
   promoterHoldings?: PromoterHolding[];
   prosCons?: { type: "pro" | "con"; description: string }[];
@@ -357,15 +356,22 @@ Company Description:
                     }))
                 }
                 />
-                  <RFStatementForm
-                financialData={formData.financialData || []}
-                setFinancialData={(newData) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    financialData: Array.isArray(newData) ? newData : [],
-                  }))
-                }
-              />
+                 <RFStatementForm
+                    financialData={formData.financialData || []}
+                    setFinancialData={(newData) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        financialData: Array.isArray(newData) ? newData : [],
+                      }))
+                    }
+                    financialYears={formData.financialYears || []}
+                    setFinancialYears={(years) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        financialYears: Array.isArray(years) ? years : [],
+                      }))
+                    }
+                  />
 
                 <PromoterHoldingsForm
                   promoterHoldings={formData.promoterHoldings || [{ label: "", value: "" }]}

@@ -32,12 +32,12 @@ interface Subscription {
     value: string;
   }
 
-  interface FinancialEntry {
-    metric: string;
-    fy2022: string;
-    fy2023: string;
-    fy2024: string;
-  }
+interface FinancialEntry {
+  id: string;
+  metric: string;
+  values: string[]; // dynamically aligned with financialYears
+}
+
   
 
 
@@ -85,6 +85,7 @@ interface IpoFormData {
   marketLotData?: MarketLotEntry[]; 
   timelineData?: TimelineEntry[];
   companyFundamentals?: FundamentalEntry[];
+  financialYears?: string[];
   financialData?: FinancialEntry[];
   promoterHoldings?: PromoterHolding[];
   prosCons?: { type: "pro" | "con"; description: string }[];
@@ -123,15 +124,16 @@ export default function IpoMultiStepForm() {
     marketLotData: [],
     timelineData: [],
     companyFundamentals: [],
+    financialYears: ["FY 2022", "FY 2023", "FY 2024"],
     financialData: [
-      { metric: "TOTAL REVENUE", fy2022: "", fy2023: "", fy2024: "" },
-      { metric: "TOTAL EXPENSES", fy2022: "", fy2023: "", fy2024: "" },
-      { metric: "PROFIT BEFORE TAX", fy2022: "", fy2023: "", fy2024: "" },
-      { metric: "TOTAL TAXES", fy2022: "", fy2023: "", fy2024: "" },
-      { metric: "NET PROFIT", fy2022: "", fy2023: "", fy2024: "" },
-      { metric: "EPS", fy2022: "", fy2023: "", fy2024: "" },
-      { metric: "DEBT TO EQUITY", fy2022: "", fy2023: "", fy2024: "" },
-      { metric: "EBITDA MARGIN", fy2022: "", fy2023: "", fy2024: "" }
+      {id: "1", metric: "TOTAL REVENUE", values: ["", "", ""] },
+      {id: "2", metric: "TOTAL EXPENSES", values: ["", "", ""] },
+      {id: "3", metric: "PROFIT BEFORE TAX", values: ["", "", ""] },
+      {id: "4", metric: "TOTAL TAXES", values: ["", "", ""] },
+      {id: "5", metric: "NET PROFIT", values: ["", "", ""] },
+      {id: "6", metric: "EPS", values: ["", "", ""] },
+      {id: "7", metric: "DEBT TO EQUITY", values: ["", "", ""] },
+      {id: "8", metric: "EBITDA MARGIN", values: ["", "", ""] }
     ],
     promoterHoldings: [{ label: "", value: "" }],
     prosCons: [],
@@ -201,14 +203,14 @@ export default function IpoMultiStepForm() {
           timelineData: [],
           companyFundamentals: [],
           financialData: [
-            { metric: "TOTAL REVENUE", fy2022: "", fy2023: "", fy2024: "" },
-            { metric: "TOTAL EXPENSES", fy2022: "", fy2023: "", fy2024: "" },
-            { metric: "PROFIT BEFORE TAX", fy2022: "", fy2023: "", fy2024: "" },
-            { metric: "TOTAL TAXES", fy2022: "", fy2023: "", fy2024: "" },
-            { metric: "NET PROFIT", fy2022: "", fy2023: "", fy2024: "" },
-            { metric: "EPS", fy2022: "", fy2023: "", fy2024: "" },
-            { metric: "DEBT TO EQUITY", fy2022: "", fy2023: "", fy2024: "" },
-            { metric: "EBITDA MARGIN", fy2022: "", fy2023: "", fy2024: "" }
+            { id: "1", metric: "TOTAL REVENUE", values: ["", "", ""] },
+            { id: "2", metric: "TOTAL EXPENSES", values: ["", "", ""] },
+            { id: "3", metric: "PROFIT BEFORE TAX", values: ["", "", ""] },
+            { id: "4", metric: "TOTAL TAXES", values: ["", "", ""] },
+            {id: "5", metric: "NET PROFIT", values: ["", "", ""] },
+            {id: "6", metric: "EPS", values: ["", "", ""] },
+            {id: "7", metric: "DEBT TO EQUITY", values: ["", "", ""] },
+            {id: "8", metric: "EBITDA MARGIN", values: ["", "", ""] }
           ],
           promoterHoldings: [{ label: "", value: "" }],
           prosCons: [],
@@ -411,14 +413,22 @@ Company Description:
                 }
                 />
              <RFStatementForm
-                financialData={formData.financialData || []}
-                setFinancialData={(newData) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    financialData: Array.isArray(newData) ? newData : [],
-                  }))
-                }
-              />
+                    financialData={formData.financialData || []}
+                    setFinancialData={(newData) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        financialData: Array.isArray(newData) ? newData : [],
+                      }))
+                    }
+                    financialYears={formData.financialYears || []}
+                    setFinancialYears={(years) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        financialYears: Array.isArray(years) ? years : [],
+                      }))
+                    }
+                  />
+
 
 
                   
